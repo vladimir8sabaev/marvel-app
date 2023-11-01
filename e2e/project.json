@@ -1,0 +1,33 @@
+{
+  "name": "e2e",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "marvel-app:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "marvel-app:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "marvel-app:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "implicitDependencies": ["marvel-app"],
+  "tags": []
+}
